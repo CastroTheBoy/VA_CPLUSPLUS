@@ -11,6 +11,7 @@
 
 #include "IClickable.hpp"
 #include "IDrawable.hpp"
+#include "EventHandler.hpp"
 
 namespace Coursework {
 
@@ -20,8 +21,11 @@ namespace Coursework {
 		// At this point why not just expose these two? Rewrite plz.
 		Color colorStandard;
 		Color colorHighlight;
-		// Write callback functions in such a way that they're void and paramaterless
-		std::forward_list<std::function<void()>> callbacks;
+		// Maybe also just pass a bind 
+		using CallbackTrigger = std::pair<EventType, std::function<void(EventType)>>;
+		CallbackTrigger callbackTrigger;
+
+		void checkSelfClick();
 
 	public:
 		Color color;
@@ -30,14 +34,13 @@ namespace Coursework {
 		Rectangle rectangle;
 		bool isClicked = false;
 
-		Button(int x, int y, int width, int height, Color colorStandard, Color colorHighlight);
-		Button(int x, int y, int width, int height, Color colorStandard, Color colorHighlight, std::string const& text);
+		Button(int x, int y, int width, int height, Color colorStandard, Color colorHighlight, CallbackTrigger callback);
+		Button(int x, int y, int width, int height, Color colorStandard, Color colorHighlight, std::string const& text, CallbackTrigger callback);
 
 		void onClick();
-
-		void addOnReleaseCallback(std::function<void()> callback);
-
 		void onRelease(bool fireCallbacks);
+
+		void draw();
 
 	};
 

@@ -13,11 +13,7 @@ namespace Coursework {
 	// Use this for a UI screen that requires buttons
 	class MenuScreen {
 	private:
-		std::forward_list<Coursework::Button*> buttons;
-
-		void checkButtonClick();
-
-		void drawButtons();
+		std::forward_list<Button*> buttons;
 
 		Rectangle recGetWorldToScreen2D(Rectangle* rec);
 
@@ -28,7 +24,7 @@ namespace Coursework {
 		MenuScreen(Color color);
 		MenuScreen(Color color, Camera2D camera);
 
-		void addButton(Coursework::Button* button);
+		void addButton(Button* button);
 
 		void drawScreen();
 

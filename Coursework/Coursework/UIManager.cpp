@@ -7,8 +7,22 @@
 
 #include "MenuScreen.hpp"
 #include "UIManager.hpp"
+#include "EventHandler.hpp"
 
-void Coursework::UIManager::setup (UIManager* uiManager) {
+using namespace Coursework;
+
+void UIManager::setup (UIManager* uiManager) {
+
+    // ----------------------- EVENTS -----------------------
+    uiManager->uiEvents = new EventHandler();
+
+    // Link events
+    uiManager->uiEvents->addCallback(MAIN_MENU_START_ON_RELEASE, std::bind(&UIManager::dummy, uiManager));
+    uiManager->uiEvents->addCallback(MAIN_MENU_SETTING_ON_RELEASE, std::bind(&UIManager::changeScreenToSettings, uiManager));
+    uiManager->uiEvents->addCallback(MAIN_MENU_EXIT_ON_RELEASE, std::bind(&UIManager::setGameStateExitRequest, uiManager));
+    uiManager->uiEvents->addCallback(SETTING_RETURN_ON_RELEASE, std::bind(&UIManager::changeScreenToMainMenu, uiManager));
+
+    // --------------------------------------------------------
 
     float buttonWidth = 200;
     float buttonHeight = 50;
@@ -20,40 +34,40 @@ void Coursework::UIManager::setup (UIManager* uiManager) {
         
     // ----------------------- MAIN MENU -----------------------
     // Start game
-    Coursework::Button* buttonMainStart = new Coursework::Button(
+    Button* buttonMainStart = new Button(
         width / 2 - buttonWidth / 2,
         50,
         buttonWidth,
         buttonHeight,
         { 198, 202, 83, 255 },
         { 123, 114, 99, 255 },
-        "Start Game");
-    buttonMainStart->addOnReleaseCallback(std::bind(&UIManager::dummy, uiManager));
+        "Start Game",
+        std::make_pair(MAIN_MENU_START_ON_RELEASE, std::bind(&EventHandler::fireEvent, uiManager->uiEvents, std::placeholders::_1)));
     
     // Settings
-    Coursework::Button* buttonMainSettings = new Coursework::Button(
+    Button* buttonMainSettings = new Button(
         width / 2 - buttonWidth / 2,
         250,
         buttonWidth,
         buttonHeight,
         { 198, 202, 83, 255 },
         { 123, 114, 99, 255 },
-        "Settings");
-    buttonMainSettings->addOnReleaseCallback(std::bind(&UIManager::changeScreenToSettings, uiManager));
+        "Settings",
+        std::make_pair(MAIN_MENU_SETTING_ON_RELEASE, std::bind(&EventHandler::fireEvent, uiManager->uiEvents, std::placeholders::_1)));
 
     // Exit
-    Coursework::Button* buttonMainExit = new Coursework::Button(
+    Button* buttonMainExit = new Button(
         width / 2 - buttonWidth / 2,
         height - buttonHeight - 100,
         buttonWidth,
         buttonHeight,
         { 198, 202, 83, 255 },
         { 123, 114, 99, 255 },
-        "Exit");
-    buttonMainExit->addOnReleaseCallback(std::bind(&UIManager::setGameStateExitRequest, uiManager));
+        "Exit",
+        std::make_pair(MAIN_MENU_EXIT_ON_RELEASE, std::bind(&EventHandler::fireEvent, uiManager->uiEvents, std::placeholders::_1)));
 
     // Screen setup and bindings
-    Coursework::MenuScreen *screenMainMenu = new Coursework::MenuScreen({ 0, 0, 0, 125 });
+    MenuScreen *screenMainMenu = new MenuScreen({ 0, 0, 0, 125 });
     screenMainMenu->addButton(buttonMainStart);
     screenMainMenu->addButton(buttonMainExit);
     screenMainMenu->addButton(buttonMainSettings);
@@ -63,18 +77,18 @@ void Coursework::UIManager::setup (UIManager* uiManager) {
 
     // ----------------------- SETTINGS -----------------------
     // Return
-    Coursework::Button *buttonAlt = new Coursework::Button(
+    Button *buttonAlt = new Button(
         width / 2 - buttonWidth / 2,
         height - buttonHeight - 100,
         buttonWidth,
         buttonHeight,
         { 198, 202, 83, 255 },
         { 123, 114, 99, 255 },
-        "Return");
-    buttonAlt->addOnReleaseCallback(std::bind(&UIManager::changeScreenToMainMenu, uiManager));
+        "Return",
+        std::make_pair(SETTING_RETURN_ON_RELEASE, std::bind(&EventHandler::fireEvent, uiManager->uiEvents, std::placeholders::_1)));
 
     // Screen setup and bindings
-    Coursework::MenuScreen *screenAlt = new Coursework::MenuScreen({ 0,0,0,200 });
+    MenuScreen *screenAlt = new MenuScreen({ 0,0,0,200 });
     screenAlt->addButton(buttonAlt);
 
     uiManager->uiScreens["SETTINGS"] = std::make_pair(screenAlt, false);
@@ -86,30 +100,36 @@ void Coursework::UIManager::setup (UIManager* uiManager) {
 }
 
 // Rewrite to be able to set specific order
-void Coursework::UIManager::draw() {
+void UIManager::draw() {
     for (auto& i : uiScreens) {
         if (i.second.second)
             i.second.first->drawScreen();
     }
 }
 
-void Coursework::UIManager::changeScreenToSettings() {
+void UIManager::changeScreenToSettings() {
     setScreenAsOnlyActive("SETTINGS");
 }
 
-void Coursework::UIManager::changeScreenToMainMenu() {
+void UIManager::changeScreenToMainMenu() {
     setScreenAsOnlyActive("MAIN_MENU");
 }
 
-void Coursework::UIManager::setScreenAsOnlyActive(std::string screen) {
+void UIManager::setScreenAsOnlyActive(std::string screen) {
     for (auto& i : uiScreens)
         i.second.second = i.first == screen;
 }
 
-void Coursework::UIManager::setGameStateExitRequest() {
-    gameState = Coursework::GameState::EXIT_REQUEST;
+void UIManager::setGameStateExitRequest() {
+    gameState = GameState::EXIT_REQUEST;
 }
 
-Coursework::UIManager::UIManager() {
+UIManager::UIManager() {
     setup(this);
+}
+
+UIManager::~UIManager() {
+    delete uiEvents;
+    for (auto i : uiScreens)
+        delete i.second.first;
 }

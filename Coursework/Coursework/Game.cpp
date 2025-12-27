@@ -2,7 +2,9 @@
 
 #include "Game.hpp"
 
-void Coursework::Game::run() {
+using namespace Coursework;
+
+void Game::run() {
 
     InitWindow(800, 600, "Coursework");
     SetTargetFPS(60);
@@ -11,7 +13,8 @@ void Coursework::Game::run() {
     int debugTextPosY = 20;
     int debugTextPosX = 20;
 
-    Coursework::UIManager uiManager;
+    // Basically this needs to be initialized after InitWindow(), so have it exist in run instead of being a member to Game
+    UIManager uiManager;
 
     while (true)
     {
@@ -28,7 +31,7 @@ void Coursework::Game::run() {
         EndDrawing();
 
         // Custom exit
-        if (uiManager.gameState == Coursework::GameState::EXIT_REQUEST || WindowShouldClose()) {
+        if (uiManager.gameState == GameState::EXIT_REQUEST || WindowShouldClose()) {
             CloseWindow();
             // This should be the final step in the game. Do any unloading, saving etc. before.
             return;

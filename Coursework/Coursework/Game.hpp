@@ -8,9 +8,7 @@
 namespace Coursework {
 
     class Game {
-    private:
-        Coursework::UIManager uiManager;
-    
+   
     public:
         void run();
     };

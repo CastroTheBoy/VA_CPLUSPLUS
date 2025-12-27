@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="IClickable.hpp" />
     <ClCompile Include="Main.cpp" />
@@ -140,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.hpp" />
+    <ClInclude Include="EventHandler.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="IDrawable.hpp" />
     <ClInclude Include="MenuScreen.hpp" />

@@ -9,6 +9,7 @@
 #include "raylib.h"
 
 #include "MenuScreen.hpp"
+#include "EventHandler.hpp"
 
 namespace Coursework {
 
@@ -18,7 +19,9 @@ namespace Coursework {
     private:
         // Eventually change this to a generic 'screen' and just call draw on each
         // Bool for each screen to indicate if it should be drawn
-        std::unordered_map<std::string, std::pair<Coursework::MenuScreen*, bool>> uiScreens;
+        std::unordered_map<std::string, std::pair<MenuScreen*, bool>> uiScreens;
+
+        EventHandler* uiEvents;
 
         static void setup(UIManager* uiManager);
 
@@ -37,10 +40,7 @@ namespace Coursework {
 
         UIManager();
 
-        ~UIManager() {
-            for (auto i : uiScreens)
-                delete i.second.first;
-        }
+        ~UIManager();
 
     };
 
