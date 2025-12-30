@@ -2,16 +2,9 @@
 
 #include "raylib.h"
 
-#include "Button.hpp"
 #include "MenuScreen.hpp"
 
 using namespace Coursework;
-
-// Do I need this?
-Rectangle MenuScreen::recGetWorldToScreen2D(Rectangle *rec) {
-	Vector2 temp = GetWorldToScreen2D({ rec->x, rec->y }, this->camera);
-	return { temp.x, temp.y, rec->width, rec->height };
-}
 
 MenuScreen::MenuScreen(Color color) : Background(color)
 {
@@ -26,8 +19,8 @@ MenuScreen::MenuScreen(Color color) : Background(color)
 MenuScreen::MenuScreen(Color color, Camera2D camera) : Background(color), camera(camera) {};
 		
 // I can't imagine a scenario where I would remove a button, so no removeButtion()
-void MenuScreen::addButton(Button *button) {
-	buttons.push_front(button);
+void MenuScreen::addDrawableList(DrawableList *drawable) {
+	drawables.push_front(drawable);
 }
 	
 // Call this after BeginDrawing to draw the screen and it's contents
@@ -40,7 +33,7 @@ void MenuScreen::drawScreen() {
 	// Draw menu background, ideally this has an alpha <255, especially if it's a pause menu screen
 	DrawRectangleRec({0, 0, static_cast<float>(GetScreenWidth()), static_cast<float>(GetScreenHeight())}, this->Background);
 
-	for (auto& i : buttons) {
+	for (auto& i : drawables) {
 		i->draw();
 	}
 
@@ -49,6 +42,11 @@ void MenuScreen::drawScreen() {
 
 MenuScreen::~MenuScreen()
 {
-	for (auto& i : buttons)
+	for (auto& i : drawables)
 		delete i;
 };
+
+void MenuScreen::resizeDrawables() {
+	for (auto& i : drawables)
+		i->resize();;
+}

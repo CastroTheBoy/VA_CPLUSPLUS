@@ -27,6 +27,8 @@ namespace Coursework {
 
         void setScreenAsOnlyActive(std::string);
 
+        void resize();
+
     public:
         GameState gameState;
 
@@ -35,6 +37,11 @@ namespace Coursework {
         void changeScreenToSettings();
         void changeScreenToMainMenu();
         void setGameStateExitRequest();
+        void setFullScreen();
+        // Because of my decision to have parameterless callbacks have to do this
+        // It's not the worst thing, but I know
+        void setResolutionTo_1920_1080();
+        void setResolutionTo_800_600();
 
         void dummy() {};
 

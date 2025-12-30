@@ -36,6 +36,18 @@
     <ClCompile Include="EventHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Checkbox.hpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableList.hpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -57,6 +69,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EventHandler.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

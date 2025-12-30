@@ -5,10 +5,19 @@
 
 namespace Coursework {
 
-	// Think a bit on this, maybe expand and make screen specific to use in UIManager to handle different (menu and game) screens
 	class IDrawable {
 	public:
+		float x;
+		float y;
+		float height;
+		float width;
+
 		virtual void draw() = 0;
+
+		virtual ~IDrawable() {};
+
+		IDrawable(float x, float y, float width, float height) : x(x), y(y), width(width), height(height) {};
+
 	};
 
 }

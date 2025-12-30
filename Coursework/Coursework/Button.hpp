@@ -15,33 +15,32 @@
 
 namespace Coursework {
 
-	class Button : IClickable {
+	class Button : public IClickable, public IDrawable {
 	
 	private:
 		// At this point why not just expose these two? Rewrite plz.
 		Color colorStandard;
 		Color colorHighlight;
-		// Maybe also just pass a bind 
 		using CallbackTrigger = std::pair<EventType, std::function<void(EventType)>>;
 		CallbackTrigger callbackTrigger;
 
 		void checkSelfClick();
 
+		void onClick();
+		void onRelease(bool fireCallbacks);
+
+		Rectangle getRectangle();
+
 	public:
 		Color color;
 		Color colorAlt;
 		std::string text;
-		Rectangle rectangle;
 		bool isClicked = false;
 
-		Button(int x, int y, int width, int height, Color colorStandard, Color colorHighlight, CallbackTrigger callback);
-		Button(int x, int y, int width, int height, Color colorStandard, Color colorHighlight, std::string const& text, CallbackTrigger callback);
+		Button(float x, float y, float width, float height, Color colorStandard, Color colorHighlight, CallbackTrigger callback);
+		Button(float x, float y, float width, float height, Color colorStandard, Color colorHighlight, std::string const& text, CallbackTrigger callback);
 
-		void onClick();
-		void onRelease(bool fireCallbacks);
-
-		void draw();
-
+		virtual void draw();
 	};
 
 }

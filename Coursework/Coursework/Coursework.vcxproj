@@ -129,6 +129,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CheckBox.cpp" />
+    <ClCompile Include="DrawableList.cpp" />
+    <ClCompile Include="DrawableList.hpp" />
+    <ClCompile Include="Checkbox.hpp" />
     <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="IClickable.hpp" />
@@ -143,6 +147,7 @@
     <ClInclude Include="Button.hpp" />
     <ClInclude Include="EventHandler.hpp" />
     <ClInclude Include="Game.hpp" />
+    <ClInclude Include="Helpers.hpp" />
     <ClInclude Include="IDrawable.hpp" />
     <ClInclude Include="MenuScreen.hpp" />
     <ClInclude Include="UIManager.hpp" />
