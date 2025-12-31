@@ -5,17 +5,18 @@
 
 #include "raylib.h"
 
+#include "Button.hpp"
 #include "IDrawable.hpp"
 #include "Helpers.hpp"
 
 using namespace Coursework;
 
-enum DrawableListType { JUSTIFIED, TOP, BOTTOM };
+enum ButtonListType { JUSTIFIED, TOP, BOTTOM };
 
-class DrawableList {
+class ButtonList : public IDrawable {
 
 private:
-	std::list<IDrawable*> drawables;
+	std::list<Button*> buttons;
 
 	float topOffsetPercentage;
 	float bottomOffsetPercentage;
@@ -23,16 +24,17 @@ private:
 
 public:
 
-	DrawableListType alignmentType;
+	ButtonListType alignmentType;
 
-	DrawableList(float topOffset, float bottomOffset, float listCenterWidthPercentage, DrawableListType alignmentType);
+	ButtonList(float topOffset, float bottomOffset, float listCenterWidthPercentage, ButtonListType alignmentType);
 
-	void addDrawable(IDrawable* drawable);
+	void addButton(Button* drawable);
 	
 	void draw();
+
 	void resize();
 
-	~DrawableList();
+	~ButtonList();
 
 };
 #endif

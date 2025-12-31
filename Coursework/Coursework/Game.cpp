@@ -5,6 +5,10 @@
 
 using namespace Coursework;
 
+void test() {
+    
+}
+
 void Game::run() {
 
     InitWindow(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT, "Coursework");
@@ -39,6 +43,8 @@ void Game::run() {
         DrawText(temp, GetScreenWidth() - MeasureText(temp, 20), debugTextPosY + debugTextFontSize * debugIncrement++, debugTextFontSize, BLACK);
         temp = TextFormat("Mosue Y: %i", GetMouseY());
         DrawText(temp, GetScreenWidth() - MeasureText(temp, 20), debugTextPosY + debugTextFontSize * debugIncrement++, debugTextFontSize, BLACK);
+
+        DrawEllipse(400, 400, 20, 50, BLACK);
 
         EndDrawing();
 

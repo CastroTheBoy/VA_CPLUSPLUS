@@ -13,12 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Buttons">
+      <UniqueIdentifier>{6b37696b-6436-495b-a6bc-dad84387e45c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Buttons">
+      <UniqueIdentifier>{e29e5637-be21-440a-bb01-e9e1ed3795df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IClickable.hpp">
@@ -36,26 +39,29 @@
     <ClCompile Include="EventHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Checkbox.hpp">
-      <Filter>Header Files</Filter>
+    <ClCompile Include="CheckboxButton.hpp">
+      <Filter>Header Files\Buttons</Filter>
     </ClCompile>
-    <ClCompile Include="DrawableList.hpp">
-      <Filter>Header Files</Filter>
+    <ClCompile Include="SimpleButton.cpp">
+      <Filter>Source Files\Buttons</Filter>
     </ClCompile>
-    <ClCompile Include="DrawableList.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="CheckBoxButton.cpp">
+      <Filter>Source Files\Buttons</Filter>
     </ClCompile>
-    <ClCompile Include="CheckBox.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="SliderButton.cpp">
+      <Filter>Source Files\Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonList.hpp">
+      <Filter>Header Files\Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonList.cpp">
+      <Filter>Source Files\Buttons</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Button.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="IDrawable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -73,6 +79,15 @@
     </ClInclude>
     <ClInclude Include="Helpers.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.hpp">
+      <Filter>Header Files\Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleButton.hpp">
+      <Filter>Header Files\Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="SliderButton.hpp">
+      <Filter>Header Files\Buttons</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

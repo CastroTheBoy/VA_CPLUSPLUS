@@ -6,17 +6,17 @@
 namespace Coursework {
 
 	class IDrawable {
+	protected:
+		IDrawable(bool isResizable) : isResizable(isResizable) {};
+	
 	public:
-		float x;
-		float y;
-		float height;
-		float width;
+
+		bool isResizable;
 
 		virtual void draw() = 0;
+		virtual void resize() = 0;
 
 		virtual ~IDrawable() {};
-
-		IDrawable(float x, float y, float width, float height) : x(x), y(y), width(width), height(height) {};
 
 	};
 

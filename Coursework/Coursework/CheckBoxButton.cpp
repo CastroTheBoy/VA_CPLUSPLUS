@@ -1,26 +1,18 @@
-#include <utility>
 #include <string>
-#include <iostream>
 
 #include "raylib.h"
 
-#include "Checkbox.hpp"
-#include "IClickable.hpp"
-#include "IDrawable.hpp"
+#include "CheckboxButton.hpp"
 #include "EventHandler.hpp"
 #include "Helpers.hpp"
 
 using namespace Coursework;
 
-Rectangle Checkbox::getCheckBoxRectangle() {
+Rectangle CheckboxButton::getCheckBoxRectangle() {
 	return { static_cast<float>(x + (width - height)), y, height, height };
 }
 
-Rectangle Checkbox::getOuterRectangle() {
-	return { x, y, width, height };
-}
-
-void Checkbox::checkSelfClick() {
+void CheckboxButton::checkSelfClick() {
 	if (CheckCollisionPointRec(GetMousePosition(), getCheckBoxRectangle())) {
 		// Cursor overlaps and left mouse button is clicked
 		if (IsMouseButtonDown(0))
@@ -42,32 +34,43 @@ void Checkbox::checkSelfClick() {
 }
 
 
-void Checkbox::onClick() {
+void CheckboxButton::onClick() {
 	isClicked = true;
-	std::cout << text << " - onClick" << '\n';
 }
 
-void Checkbox::onRelease(bool fireCallbacks) {
+void CheckboxButton::onRelease(bool fireCallbacks) {
 	isClicked = false;
 	isChecked = !isChecked;
-	// Again, just reference the base values
-	std::cout << text << " - onRelease" << '\n';
 	if (fireCallbacks)
-		callbackTrigger.second(callbackTrigger.first);
+		callbackOnRelease.second(callbackOnRelease.first);
 }
 
-Checkbox::Checkbox(float x, float y, float width, float height, Color colorStandard, Color colorHighlight, std::string const& text, CallbackTrigger callback) :
-	IDrawable(x, y, width, height),
-	colorStandard(colorStandard), colorAlt(colorHighlight), text(text), callbackTrigger(callback) {
+CheckboxButton::CheckboxButton(
+	float x, float y, float width, float height, Color color, Color colorAlt, std::string const& text, CallbackTrigger callbackOnRelease
+) :
+	Button(x, y, width, height, color, colorAlt, text)
+	, callbackOnRelease(callbackOnRelease) {
 };
 
-void Checkbox::draw() {
+CheckboxButton::CheckboxButton(float x, float y, float width, float height, Color color, Color colorAlt, CallbackTrigger callbackOnRelease) :
+	CheckboxButton(x, y, width, height, color, colorAlt, "", callbackOnRelease) {
+};
 
-	Rectangle recOutsideBox = getOuterRectangle();
+CheckboxButton::CheckboxButton(Rectangle rec, Color color, Color colorAlt, std::string const& text, CallbackTrigger callbackOnRelease) :
+	CheckboxButton(rec.x, rec.y, rec.width, rec.height, color, colorAlt, text, callbackOnRelease) {
+};
+
+CheckboxButton::CheckboxButton(Rectangle rec, Color color, Color colorAlt, CallbackTrigger callbackOnRelease) :
+	CheckboxButton(rec, color, colorAlt, "", callbackOnRelease) {
+};
+
+void CheckboxButton::draw() {
+
+	Rectangle recOutsideBox = getRectangle();
 	Rectangle recCheckBox = getCheckBoxRectangle();
 
 	checkSelfClick();
-	DrawRectangleRec(recOutsideBox, colorStandard);
+	DrawRectangleRec(recOutsideBox, color);
 
 	// Button border, will have a hardcoded size and be based on inverse of current color
 	DrawRectangleLinesEx(recOutsideBox, outerBorderWidth, colorAlt);
@@ -96,6 +99,6 @@ void Checkbox::draw() {
 
 	// Button text - think of resizing issues for all of this later
 	// Draws text in the middle of button rectangle, hardcoded for font size 20, make sure text length doesn't exceed button length!
-	int textWidth = MeasureText(text.c_str(), 20);
-	DrawText(text.c_str(), recOutsideBox.x + 5, recOutsideBox.y + (recOutsideBox.height / 2) - 10, 20, BLACK);
+	int textWidth = MeasureText(text.c_str(), fontSize);
+	DrawText(text.c_str(), recOutsideBox.x + 5, recOutsideBox.y + (recOutsideBox.height / 2) - 10, fontSize, textColor);
 }

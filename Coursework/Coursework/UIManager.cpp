@@ -8,10 +8,11 @@
 #include "MenuScreen.hpp"
 #include "UIManager.hpp"
 #include "EventHandler.hpp"
-#include "CheckBox.hpp"
 #include "Button.hpp"
+#include "CheckBoxButton.hpp"
+#include "SimpleButton.hpp"
 #include "IDrawable.hpp"
-#include "DrawableList.hpp"
+#include "ButtonList.hpp"
 
 using namespace Coursework;
 
@@ -39,7 +40,7 @@ void UIManager::setup (UIManager* uiManager) {
 
     // ----------------------- MAIN MENU -----------------------
     // Start game
-    Button* buttonMainStart = new Button(
+    SimpleButton* buttonMainStart = new SimpleButton(
         1,
         1,
         buttonWidth,
@@ -50,7 +51,7 @@ void UIManager::setup (UIManager* uiManager) {
         std::make_pair(MAIN_MENU_START_ON_RELEASE, std::bind(&EventHandler::fireEvent, uiManager->uiEvents, std::placeholders::_1)));
     
     // Settings
-    Button* buttonMainSettings = new Button(
+    SimpleButton* buttonMainSettings = new SimpleButton(
         1,
         1,
         buttonWidth,
@@ -61,7 +62,7 @@ void UIManager::setup (UIManager* uiManager) {
         std::make_pair(MAIN_MENU_SETTING_ON_RELEASE, std::bind(&EventHandler::fireEvent, uiManager->uiEvents, std::placeholders::_1)));
 
     // Exit
-    Button* buttonMainExit = new Button(
+    SimpleButton* buttonMainExit = new SimpleButton(
         1,
         1,
         buttonWidth,
@@ -71,22 +72,22 @@ void UIManager::setup (UIManager* uiManager) {
         "Exit",
         std::make_pair(MAIN_MENU_EXIT_ON_RELEASE, std::bind(&EventHandler::fireEvent, uiManager->uiEvents, std::placeholders::_1)));
 
-    DrawableList* mainMenuDrawables = new DrawableList(0.1, 0.1, 0.5, JUSTIFIED);
+    ButtonList* mainMenuButtons = new ButtonList(0.1, 0.1, 0.5, JUSTIFIED);
 
-    mainMenuDrawables->addDrawable(buttonMainStart);
-    mainMenuDrawables->addDrawable(buttonMainSettings);
-    mainMenuDrawables->addDrawable(buttonMainExit);
+    mainMenuButtons->addButton(buttonMainStart);
+    mainMenuButtons->addButton(buttonMainSettings);
+    mainMenuButtons->addButton(buttonMainExit);
 
     // Screen setup and bindings
     MenuScreen *screenMainMenu = new MenuScreen({ 0, 0, 0, 125 });
-    screenMainMenu->addDrawableList(mainMenuDrawables);
+    screenMainMenu->addDrawable(mainMenuButtons);
     
     uiManager->uiScreens["MAIN_MENU"] = std::make_pair(screenMainMenu, false);
     // --------------------------------------------------------
 
     // ----------------------- SETTINGS -----------------------
     // Return
-    Button *btnSettingsReturn = new Button(
+    SimpleButton *btnSettingsReturn = new SimpleButton(
         1,
         1,
         buttonWidth,
@@ -96,11 +97,11 @@ void UIManager::setup (UIManager* uiManager) {
         "Return",
         std::make_pair(SETTING_RETURN_ON_RELEASE, std::bind(&EventHandler::fireEvent, uiManager->uiEvents, std::placeholders::_1)));
 
-    DrawableList* settingsReturnButton = new DrawableList(0.1, 0.8, 0.7, JUSTIFIED);
+    ButtonList* settingsReturnButton = new ButtonList(0.1, 0.8, 0.7, JUSTIFIED);
 
-    settingsReturnButton->addDrawable(btnSettingsReturn);
+    settingsReturnButton->addButton(btnSettingsReturn);
 
-    Checkbox* cbxSettingsFullscreen = new Checkbox(
+    CheckboxButton* cbxSettingsFullscreen = new CheckboxButton(
         1,
         1,
         buttonWidth,
@@ -112,7 +113,7 @@ void UIManager::setup (UIManager* uiManager) {
 
     cbxSettingsFullscreen->isChecked = IsWindowFullscreen();
 
-    Button* btnSettingsRes_1920_1080 = new Button(
+    SimpleButton* btnSettingsRes_1920_1080 = new SimpleButton(
         1,
         1,
         buttonWidth,
@@ -122,7 +123,7 @@ void UIManager::setup (UIManager* uiManager) {
         "1920 X 1080",
         std::make_pair(SCREEN_RESIZE_1920_1080, std::bind(&EventHandler::fireEvent, uiManager->uiEvents, std::placeholders::_1)));
 
-    Button* btnSettingsRes_800_600 = new Button(
+    SimpleButton* btnSettingsRes_800_600 = new SimpleButton(
         1,
         1,
         buttonWidth,
@@ -132,15 +133,15 @@ void UIManager::setup (UIManager* uiManager) {
         "800 X 600",
         std::make_pair(SCREEN_RESIZE_800_600, std::bind(&EventHandler::fireEvent, uiManager->uiEvents, std::placeholders::_1)));
     
-    DrawableList* settingsConfigurationButtons = new DrawableList(0.1, 0.1, 0.2, JUSTIFIED);
-    settingsConfigurationButtons->addDrawable(cbxSettingsFullscreen);
-    settingsConfigurationButtons->addDrawable(btnSettingsRes_1920_1080);
-    settingsConfigurationButtons->addDrawable(btnSettingsRes_800_600);
+    ButtonList* settingsConfigurationButtons = new ButtonList(0.1, 0.1, 0.2, JUSTIFIED);
+    settingsConfigurationButtons->addButton(cbxSettingsFullscreen);
+    settingsConfigurationButtons->addButton(btnSettingsRes_1920_1080);
+    settingsConfigurationButtons->addButton(btnSettingsRes_800_600);
 
     // Screen setup and bindings
     MenuScreen *screenAlt = new MenuScreen({ 0,0,0,200 });
-    screenAlt->addDrawableList(settingsReturnButton);
-    screenAlt->addDrawableList(settingsConfigurationButtons);
+    screenAlt->addDrawable(settingsReturnButton);
+    screenAlt->addDrawable(settingsConfigurationButtons);
 
     uiManager->uiScreens["SETTINGS"] = std::make_pair(screenAlt, false);
     // --------------------------------------------------------

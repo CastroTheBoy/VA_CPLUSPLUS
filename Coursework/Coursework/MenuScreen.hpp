@@ -6,14 +6,14 @@
 
 #include "raylib.h"
 
-#include "DrawableList.hpp"
+#include "IDrawable.hpp"
 
 namespace Coursework {
 
 	// Use this for a UI screen that requires buttons
 	class MenuScreen {
 	private:
-		std::forward_list<DrawableList*> drawables;
+		std::forward_list<IDrawable*> drawables;
 
 	public:
 		Color Background;
@@ -22,7 +22,7 @@ namespace Coursework {
 		MenuScreen(Color color);
 		MenuScreen(Color color, Camera2D camera);
 
-		void addDrawableList(DrawableList* drawableList);
+		void addDrawable(IDrawable* drawable);
 
 		void drawScreen();
 		void resizeDrawables();

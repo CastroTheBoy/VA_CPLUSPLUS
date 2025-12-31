@@ -3,6 +3,7 @@
 #include "raylib.h"
 
 #include "MenuScreen.hpp"
+#include "IDrawable.hpp"
 
 using namespace Coursework;
 
@@ -19,7 +20,7 @@ MenuScreen::MenuScreen(Color color) : Background(color)
 MenuScreen::MenuScreen(Color color, Camera2D camera) : Background(color), camera(camera) {};
 		
 // I can't imagine a scenario where I would remove a button, so no removeButtion()
-void MenuScreen::addDrawableList(DrawableList *drawable) {
+void MenuScreen::addDrawable(IDrawable *drawable) {
 	drawables.push_front(drawable);
 }
 	
@@ -48,5 +49,6 @@ MenuScreen::~MenuScreen()
 
 void MenuScreen::resizeDrawables() {
 	for (auto& i : drawables)
-		i->resize();;
+		if(i->isResizable)
+			i->resize();
 }

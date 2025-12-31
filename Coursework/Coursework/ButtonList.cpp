@@ -2,40 +2,41 @@
 
 #include "raylib.h"
 
-#include "DrawableList.hpp"
+#include "ButtonList.hpp"
 #include "IDrawable.hpp"
 #include "Helpers.hpp"
 
 using namespace Coursework;
 
-DrawableList::DrawableList(float topOffset, float bottomOffset, float listCenterWidthPercentage, DrawableListType alignmentType) :
+ButtonList::ButtonList(float topOffset, float bottomOffset, float listCenterWidthPercentage, ButtonListType alignmentType) :
 	topOffsetPercentage(topOffset),
 	bottomOffsetPercentage(bottomOffset),
 	listCenterWidthPercentage(listCenterWidthPercentage),
-	alignmentType(alignmentType)
+	alignmentType(alignmentType),
+	IDrawable(true)
 {};
 
-void DrawableList::addDrawable(IDrawable* drawable) {
-	drawables.push_back(drawable);
+void ButtonList::addButton(Button* button) {
+	buttons.push_back(button);
 	resize();
 }
 
-void DrawableList::draw() {	
-	for (auto& i : drawables)
+void ButtonList::draw() {
+	for (auto& i : buttons)
 		i->draw();
 }
 
 // Replace all the function calls with variables
-void DrawableList::resize() {
+void ButtonList::resize() {
 	int j = 1;
-	int size = drawables.size();
+	int size = buttons.size();
 	
 	int firstHeight = 0;
 	int lastHeight = 0;
 
-	if (drawables.size() > 0) {
-		firstHeight = drawables.front()->height;
-		lastHeight = drawables.back()->height;
+	if (buttons.size() > 0) {
+		firstHeight = buttons.front()->height;
+		lastHeight = buttons.back()->height;
 	}
 	
 	float topY = Helpers::round_to(GetScreenHeight() * topOffsetPercentage);
@@ -44,10 +45,10 @@ void DrawableList::resize() {
 	int availableYLength = bottomY - topY - firstHeight - lastHeight;
 	
 	int intervalLength = 0;
-	if(drawables.size() > 2)
-		intervalLength = availableYLength / (drawables.size() - 2);
+	if(buttons.size() > 2)
+		intervalLength = availableYLength / (buttons.size() - 2);
 
-	for (auto& i : drawables) {
+	for (auto& i : buttons) {
 		if (j == 1) {
 			i->x = (GetScreenWidth() * listCenterWidthPercentage) - i->width / 2;
 			i->y = topY;
@@ -65,7 +66,7 @@ void DrawableList::resize() {
 	}
 }
 
-DrawableList::~DrawableList() {
-	for (auto& i : drawables)
+ButtonList::~ButtonList() {
+	for (auto& i : buttons)
 		delete i;
 }
