@@ -1,5 +1,4 @@
-#ifndef COURSEWORK_HELPERS
-#define COURSEWORK_HELPERS
+#pragma once
 
 #include <cmath>
 
@@ -15,6 +14,8 @@ namespace Coursework {
     // Put the static methods inside a class to identify them easier in other files
     static class Helpers {
     public:
+
+        
         static Color changeColorDarkness(Color color, float darkenValue) {
             return {
                 static_cast<unsigned char>((static_cast<int>(color.r) * darkenValue)),
@@ -61,4 +62,3 @@ namespace Coursework {
     
 
 }
-#endif

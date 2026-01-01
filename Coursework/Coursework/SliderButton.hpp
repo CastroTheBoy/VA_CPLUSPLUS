@@ -29,12 +29,19 @@ namespace Coursework {
 		
 		void checkSelfClick();
 		void onClick();
-		void onSliderIncrement(bool fireCallback);
-		void onSliderDecrement(bool fireCallback);
+		void onRelease();
+
+		Rectangle getSliderBox();
+		Rectangle getSliderBar();
+		Rectangle getSliderBarBox();
 
 	public:
 		bool isClicked = false;
-		int incrementStepCount;
+		int incrementStepCount = 100;
+		int currentIncrenemnt = 0;
+
+		void onSliderIncrement(bool fireCallback);
+		void onSliderDecrement(bool fireCallback);
 
 		SliderButton(float x, float y, float width, float height, Color color, Color colorAlt, std::string const& text, CallbackTrigger callbackOnIncrement, CallbackTrigger callbackOnDecrement);
 		SliderButton(float x, float y, float width, float height, Color color, Color colorAlt, CallbackTrigger callbackOnIncrement, CallbackTrigger callbackOnDecrement);

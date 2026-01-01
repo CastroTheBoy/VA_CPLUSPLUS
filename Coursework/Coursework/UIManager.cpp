@@ -5,14 +5,17 @@
 
 #include "raylib.h"
 
+#include "Game.hpp"
 #include "MenuScreen.hpp"
 #include "UIManager.hpp"
 #include "EventHandler.hpp"
 #include "Button.hpp"
 #include "CheckBoxButton.hpp"
 #include "SimpleButton.hpp"
+#include "SliderButton.hpp"
 #include "IDrawable.hpp"
 #include "ButtonList.hpp"
+#include "Helpers.hpp"
 
 using namespace Coursework;
 
@@ -72,6 +75,37 @@ void UIManager::setup (UIManager* uiManager) {
         "Exit",
         std::make_pair(MAIN_MENU_EXIT_ON_RELEASE, std::bind(&EventHandler::fireEvent, uiManager->uiEvents, std::placeholders::_1)));
 
+    SliderButton* buttonSliderTest = new SliderButton(
+        400,
+        300,
+        buttonWidth,
+        buttonHeight + buttonHeight * 0.5,
+        { 198, 202, 83, 255 },
+        { 123, 114, 99, 255 },
+        "Slider",
+        std::make_pair(SLIDER_INCREMENT_1, std::bind(&EventHandler::fireEvent, uiManager->uiEvents, std::placeholders::_1)),
+        std::make_pair(SLIDER_DECREMENT_1, std::bind(&EventHandler::fireEvent, uiManager->uiEvents, std::placeholders::_1)));
+
+    SliderButton* buttonSliderTest2 = new SliderButton(
+        400,
+        700,
+        buttonWidth,
+        buttonHeight + buttonHeight * 0.5,
+        { 198, 202, 83, 255 },
+        { 123, 114, 99, 255 },
+        "Slider",
+        std::make_pair(SLIDER_INCREMENT_2, std::bind(&EventHandler::fireEvent, uiManager->uiEvents, std::placeholders::_1)),
+        std::make_pair(SLIDER_DECREMENT_2, std::bind(&EventHandler::fireEvent, uiManager->uiEvents, std::placeholders::_1)));
+
+    extern int radiusX;
+    extern int radiusY;
+
+    uiManager->uiEvents->addCallback(SLIDER_INCREMENT_1, []() { radiusX++; });
+    uiManager->uiEvents->addCallback(SLIDER_DECREMENT_1, []() { radiusX--; });
+
+    uiManager->uiEvents->addCallback(SLIDER_INCREMENT_2, []() { radiusY++; });
+    uiManager->uiEvents->addCallback(SLIDER_DECREMENT_2, []() { radiusY--; });
+
     ButtonList* mainMenuButtons = new ButtonList(0.1, 0.1, 0.5, JUSTIFIED);
 
     mainMenuButtons->addButton(buttonMainStart);
@@ -81,6 +115,8 @@ void UIManager::setup (UIManager* uiManager) {
     // Screen setup and bindings
     MenuScreen *screenMainMenu = new MenuScreen({ 0, 0, 0, 125 });
     screenMainMenu->addDrawable(mainMenuButtons);
+    screenMainMenu->addDrawable(buttonSliderTest);
+    screenMainMenu->addDrawable(buttonSliderTest2);
     
     uiManager->uiScreens["MAIN_MENU"] = std::make_pair(screenMainMenu, false);
     // --------------------------------------------------------

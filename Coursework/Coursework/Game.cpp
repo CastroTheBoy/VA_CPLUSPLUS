@@ -1,13 +1,13 @@
 #include "raylib.h"
 
 #include "Game.hpp"
+#include "UIManager.hpp"
 #include "Helpers.hpp"
 
 using namespace Coursework;
 
-void test() {
-    
-}
+extern int radiusX = 50;
+extern int radiusY = 50;
 
 void Game::run() {
 
@@ -18,6 +18,9 @@ void Game::run() {
     int debugTextFontSize = 20;
     int debugTextPosY = 20;
     int debugTextPosX = 0;
+
+    extern int radiusX;
+    extern int radiusY;
     
     // Basically this needs to be initialized after InitWindow(), so have it exist in run() instead of being a member to Game
     UIManager uiManager;
@@ -44,7 +47,10 @@ void Game::run() {
         temp = TextFormat("Mosue Y: %i", GetMouseY());
         DrawText(temp, GetScreenWidth() - MeasureText(temp, 20), debugTextPosY + debugTextFontSize * debugIncrement++, debugTextFontSize, BLACK);
 
-        DrawEllipse(400, 400, 20, 50, BLACK);
+        DrawEllipse(900, 400, radiusX, radiusY, BLACK);
+
+        DrawText(TextFormat("radiusX: %i", radiusX), debugTextPosX, debugTextPosY + debugTextFontSize * debugIncrement++, debugTextFontSize, BLACK);
+        DrawText(TextFormat("radiusY: %i", radiusY), debugTextPosX, debugTextPosY + debugTextFontSize * debugIncrement++, debugTextFontSize, BLACK);
 
         EndDrawing();
 
