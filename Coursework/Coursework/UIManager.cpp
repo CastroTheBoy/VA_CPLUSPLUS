@@ -17,6 +17,9 @@
 #include "ButtonList.hpp"
 #include "Helpers.hpp"
 
+// I have learned lambdas
+// I have become God, the passer of callbacks
+
 using namespace Coursework;
 
 void UIManager::setup (UIManager* uiManager) {
@@ -30,8 +33,6 @@ void UIManager::setup (UIManager* uiManager) {
     uiManager->uiEvents->addCallback(MAIN_MENU_EXIT_ON_RELEASE, std::bind(&UIManager::setGameStateExitRequest, uiManager));
     uiManager->uiEvents->addCallback(SETTING_RETURN_ON_RELEASE, std::bind(&UIManager::changeScreenToMainMenu, uiManager));
     uiManager->uiEvents->addCallback(SETTING_FULLSCREEN_ON_RELEASE, std::bind(&UIManager::setFullScreen, uiManager));
-    uiManager->uiEvents->addCallback(SCREEN_RESIZE_1920_1080, std::bind(&UIManager::setResolutionTo_1920_1080, uiManager));
-    uiManager->uiEvents->addCallback(SCREEN_RESIZE_800_600, std::bind(&UIManager::setResolutionTo_800_600, uiManager));
 
     // --------------------------------------------------------
 
@@ -158,6 +159,8 @@ void UIManager::setup (UIManager* uiManager) {
         { 123, 114, 99, 255 },
         "1920 X 1080",
         std::make_pair(SCREEN_RESIZE_1920_1080, std::bind(&EventHandler::fireEvent, uiManager->uiEvents, std::placeholders::_1)));
+    
+    uiManager->uiEvents->addCallback(SCREEN_RESIZE_1920_1080, [uiManager]() {uiManager->setResolution(R1920_1080); uiManager->resolution = R1920_1080; });
 
     SimpleButton* btnSettingsRes_800_600 = new SimpleButton(
         1,
@@ -169,6 +172,8 @@ void UIManager::setup (UIManager* uiManager) {
         "800 X 600",
         std::make_pair(SCREEN_RESIZE_800_600, std::bind(&EventHandler::fireEvent, uiManager->uiEvents, std::placeholders::_1)));
     
+    uiManager->uiEvents->addCallback(SCREEN_RESIZE_800_600, [uiManager]() {uiManager->setResolution(R800_600); uiManager->resolution = R800_600; });
+
     ButtonList* settingsConfigurationButtons = new ButtonList(0.1, 0.1, 0.2, JUSTIFIED);
     settingsConfigurationButtons->addButton(cbxSettingsFullscreen);
     settingsConfigurationButtons->addButton(btnSettingsRes_1920_1080);
@@ -187,14 +192,18 @@ void UIManager::setup (UIManager* uiManager) {
     
 }
 
-// Will this screw me over if it's called in the middle of the draw cycle?
-void UIManager::setResolutionTo_1920_1080() {
-    SetWindowSize(1920, 1080);
-    resize();
-}
-
-void UIManager::setResolutionTo_800_600() {
-    SetWindowSize(800, 600);
+void UIManager::setResolution(Resolution res) {
+    switch (res)
+    {
+    case Coursework::R1920_1080:
+        SetWindowSize(1920, 1080);
+        break;
+    case Coursework::R800_600:
+        SetWindowSize(800, 600);
+        break;
+    default:
+        break;
+    }
     resize();
 }
 
@@ -225,7 +234,7 @@ void UIManager::setGameStateExitRequest() {
 
 void UIManager::setFullScreen() {
     ToggleFullscreen();
-    resize();
+    setResolution(resolution);
 }
 
 UIManager::UIManager() {

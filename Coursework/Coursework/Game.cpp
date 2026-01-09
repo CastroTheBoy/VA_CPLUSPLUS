@@ -24,6 +24,7 @@ void Game::run() {
     
     // Basically this needs to be initialized after InitWindow(), so have it exist in run() instead of being a member to Game
     UIManager uiManager;
+    uiManager.setResolution(Resolution::R1920_1080);
 
     while (true)
     {

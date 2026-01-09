@@ -9,32 +9,34 @@
 #include "IDrawable.hpp"
 #include "Helpers.hpp"
 
-using namespace Coursework;
+namespace Coursework {
 
-enum ButtonListType { JUSTIFIED, TOP, BOTTOM };
+	enum ButtonListType { JUSTIFIED, TOP, BOTTOM };
 
-class ButtonList : public IDrawable {
+	class ButtonList : public IDrawable {
 
-private:
-	std::list<Button*> buttons;
+	private:
+		std::list<Button*> buttons;
 
-	float topOffsetPercentage;
-	float bottomOffsetPercentage;
-	float listCenterWidthPercentage;
+		float topOffsetPercentage;
+		float bottomOffsetPercentage;
+		float listCenterWidthPercentage;
 
-public:
+	public:
 
-	ButtonListType alignmentType;
+		ButtonListType alignmentType;
 
-	ButtonList(float topOffset, float bottomOffset, float listCenterWidthPercentage, ButtonListType alignmentType);
+		ButtonList(float topOffset, float bottomOffset, float listCenterWidthPercentage, ButtonListType alignmentType);
 
-	void addButton(Button* drawable);
+		void addButton(Button* drawable);
 	
-	void draw();
+		void draw();
 
-	void resize();
+		void resize();
 
-	~ButtonList();
+		~ButtonList();
 
-};
+	};
+}
+
 #endif

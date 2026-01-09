@@ -15,6 +15,11 @@ namespace Coursework {
 
     enum GameState { INITIAL, ACTIVE, PAUSED, EXIT_REQUEST };
 
+    enum Resolution {
+        R1920_1080,
+        R800_600
+    };
+
     class UIManager {
     private:
         // Eventually change this to a generic 'screen' and just call draw on each
@@ -31,6 +36,7 @@ namespace Coursework {
 
     public:
         GameState gameState;
+        Resolution resolution;
 
         void draw();
 
@@ -42,6 +48,8 @@ namespace Coursework {
         // It's not the worst thing, but I know
         void setResolutionTo_1920_1080();
         void setResolutionTo_800_600();
+
+        void setResolution(Resolution res);
 
         void dummy() {};
 
