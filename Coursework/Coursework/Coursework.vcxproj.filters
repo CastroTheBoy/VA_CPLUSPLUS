@@ -24,9 +24,6 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IClickable.hpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="MenuScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -65,9 +62,6 @@
     <ClInclude Include="IDrawable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MenuScreen.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="UIManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -88,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="SliderButton.hpp">
       <Filter>Header Files\Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScreen.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

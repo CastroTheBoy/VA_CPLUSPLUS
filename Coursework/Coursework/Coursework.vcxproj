@@ -135,7 +135,6 @@
     <ClCompile Include="CheckboxButton.hpp" />
     <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="IClickable.hpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
     <ClCompile Include="SliderButton.cpp" />
